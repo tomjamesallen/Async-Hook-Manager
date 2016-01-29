@@ -1,10 +1,12 @@
 Async hook manager built on top of the Q promise library.
 
-# Getting Started
-
 Currently only CommonJS support.
+
+## Basic usage
+
 `npm install async-hook-manager`
 
+```javascript
 
     // We're using Q to return promises to the hook manager.
     var Q = require('q');
@@ -55,4 +57,4 @@ Currently only CommonJS support.
     // Unregister a hook that is no longer required.
     myHookManager.unregisterHook(syncHook);
 
-
+```
