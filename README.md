@@ -3,8 +3,7 @@ Async hook manager built on top of the Q promise library.
 # Getting Started
 
 Currently only CommonJS support.
-
-    npm install async-hook-manager
+`npm install async-hook-manager`
 
 
     // We're using Q to return promises to the hook manager.
