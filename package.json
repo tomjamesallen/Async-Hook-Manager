@@ -9,6 +9,7 @@
   "author": "tom allen <tomjamesallenweb@gmail.com> (http://tomjamesallen.co.uk)",
   "license": "ISC",
   "dependencies": {
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "clone": "^1.0.2",
   }
 }

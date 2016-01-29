@@ -1,4 +1,5 @@
 var Q = require('q');
+var clone = require('clone');
 
 // Return a constructor function.
 module.exports = function () {
@@ -105,6 +106,8 @@ module.exports = function () {
      */
     makeCall(options) {
 
+      var thisCallHooksPromiseLog = clone(callHooksPromiseLog);
+
       // Keep track of whether all the hooks for the current call are settled.
       var allHooksSettled = Q.defer();
 
@@ -193,11 +196,12 @@ module.exports = function () {
       
       // Save the allHooksSettled promise to the callHooksPromiseLog.
       callHooksPromiseLog.push(allHooksSettled.promise);
+      thisCallHooksPromiseLog.push(allHooksSettled.promise);
 
       // If we are to respect previous calls, then wait for all calls in the
       // callHooksPromiseLog to resolve before resolving out return promise.
       if (respectPreviousCalls) {
-        Q.allSettled(callHooksPromiseLog).then(function () {
+        Q.allSettled(thisCallHooksPromiseLog).then(function () {
           
           // Check whether we have a rejected promise from this call. If not
           // then resolve the returnPromise, otherwise reject it.
