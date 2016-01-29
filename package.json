@@ -1,0 +1,14 @@
+{
+  "name": "async-hook-manager",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tom allen <tomjamesallenweb@gmail.com> (http://tomjamesallen.co.uk)",
+  "license": "ISC",
+  "dependencies": {
+    "q": "^1.4.1"
+  }
+}
