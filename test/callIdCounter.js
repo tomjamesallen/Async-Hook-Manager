@@ -1,7 +1,7 @@
 var assert = require('assert');
 var AHM = require('../index.js');
 
-describe('callIdCounter', function () {
+describe('test call id counter', function () {
 
   // Create a new instance of AHM.
   var myHookManager = AHM();
