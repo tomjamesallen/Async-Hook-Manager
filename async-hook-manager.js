@@ -77,7 +77,9 @@ module.exports = function () {
         hookRegistry[hookIdCounter].reference = reference;
       }
 
-      return hookIdCounter ++;
+      hookIdCounter ++;
+
+      return hookId;
     },
 
     /**
@@ -167,28 +169,27 @@ module.exports = function () {
         // Reset promise values.
         qPromise = null;
         hookPromise = null;
-        
-        // If we have a false then push a rejected promise to the hookPromises.
-        if (hookReturnVal === false) {
-          qPromise = Q.defer();
-          qPromise.reject();
-          hookPromise = qPromise.promise;
-        }
 
         // If we have a true, then we push a resolved promise to the
         // hookPromises.
-        else if (hookReturnVal === true) {
+        if (hookReturnVal === true) {
           qPromise = Q.defer();
           qPromise.resolve();
           hookPromise = qPromise.promise;
         }
 
         // Else we have a promise, so push to hookPromises.
-        else if (typeof hookPromise === 'object') {
+        else if (typeof hookPromise === 'object' && hookPromise) {
           hookPromise = hookReturnVal;
         }
 
-        else continue;
+        // If we don't have a true return value or a promise then push a
+        // rejected promise to the hookPromises.
+        else {
+          qPromise = Q.defer();
+          qPromise.reject();
+          hookPromise = qPromise.promise;
+        }
 
         // Save the most recent promise to the hook registry.
         hook.lastPromise = {
