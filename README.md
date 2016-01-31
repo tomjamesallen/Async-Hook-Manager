@@ -58,3 +58,23 @@ Currently only CommonJS support.
     myHookManager.unregisterHook(syncHookId);
 
 ```
+
+## API instance Methods
+
+### Register a new hook
+`.registerHook(hookCallback[, reference])`
+
+### Unregister a hook
+`.unregisterHook(hookId)`
+
+### Unregister all hooks
+'.unregisterAllHooks()'
+
+### Get all currently registered hooks
+`.getAllRegisteredHooks()`
+
+### Make a call
+`.makeCall([options])`
+
+### Get the ID of the last call.
+`.getLastCallId()`
