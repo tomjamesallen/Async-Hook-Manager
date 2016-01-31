@@ -66,6 +66,8 @@ module.exports = function () {
      */
     registerHook(hookCallback, reference) {
       if (typeof hookCallback !== 'function') return;
+
+      var hookId = hookIdCounter.toString();
       
       hookRegistry[hookIdCounter] = {
         callback: hookCallback
@@ -83,6 +85,7 @@ module.exports = function () {
      * @param {number} hookId the ID of the hook to unregister.
      */
     unregisterHook(hookId) {
+      var hookId = hookId.toString();
       delete hookRegistry[hookId];
     },
 
