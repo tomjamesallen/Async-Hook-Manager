@@ -36,7 +36,7 @@ Currently only CommonJS support.
     });
 
     // Register a sync hook.
-    var syncHook = myHookManager.registerHook(function () {
+    var syncHookId = myHookManager.registerHook(function () {
 
       // Do something synchronously here...
       example.updateSomeDataSynchronously();
@@ -55,6 +55,6 @@ Currently only CommonJS support.
     });
 
     // Unregister a hook that is no longer required.
-    myHookManager.unregisterHook(syncHook);
+    myHookManager.unregisterHook(syncHookId);
 
 ```
