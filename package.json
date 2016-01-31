@@ -3,7 +3,7 @@
   "version": "0.0.4",
   "description": "",
   "repository": "https://github.com/tomjamesallen/async-hook-manager",
-  "main": "index.js",
+  "main": "async-hook-manager.js",
   "scripts": {
     "test": "mocha test/index.js"
   },
@@ -17,5 +17,8 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "mocha": "^2.4.5"
+  },
+  "bugs": {
+    "url": "https://github.com/tomjamesallen/async-hook-manager/issues"
   }
 }

@@ -1,5 +1,5 @@
 var assert = require('assert');
-var AHM = require('../index.js');
+var AHM = require('../async-hook-manager.js');
 
 describe('test call id counter', function () {
 
