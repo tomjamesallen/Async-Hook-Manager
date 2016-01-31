@@ -1,6 +1,6 @@
 {
   "name": "async-hook-manager",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "repository": "https://github.com/tomjamesallen/async-hook-manager",
   "main": "async-hook-manager.js",
