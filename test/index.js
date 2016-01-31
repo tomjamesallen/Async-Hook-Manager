@@ -1,3 +1,4 @@
 require('./callIdCounter');
-require('./basicSingleHookCase');
-require('./asyncSingleHookCase');
+require('./registerUnregisterHook');
+// require('./basicSingleHookCase');
+// require('./asyncSingleHookCase');

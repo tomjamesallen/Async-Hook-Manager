@@ -14,9 +14,9 @@ describe('register and unregister hooks', function () {
   });
 
   it('should register a hook that passes a callback', function () {
-    hookId = myHookManager.registerHook(function () {});
+    hookId = myHookManager.registerHook(noop);
     var hookRegistry = myHookManager.getAllRegisteredHooks();
-    expect(hookRegistry).to.have.all.keys('0');
+    expect(Object.keys(hookRegistry).length).to.equal(1);
   });
 
   it('should unregister a valid hook', function () {
@@ -25,8 +25,13 @@ describe('register and unregister hooks', function () {
     expect(hookRegistry).to.be.empty;
   });
 
-  // it('should be able to unregister all hooks', function () {
-  //   // Method needs writing.
-  //   expect(true).to.equal(false, 'method needs writing');
-  // });
+  it('should be able to unregister all registered hooks with `unregisterAllHooks()`', function () {
+    myHookManager.registerHook(noop);
+    myHookManager.registerHook(noop);
+    myHookManager.registerHook(noop);
+    var hookRegistry = myHookManager.getAllRegisteredHooks();
+    expect(Object.keys(hookRegistry).length).to.equal(3);
+    myHookManager.unregisterAllHooks();
+    expect(hookRegistry).to.be.empty;
+  });
 });

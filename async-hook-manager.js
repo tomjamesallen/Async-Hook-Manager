@@ -90,6 +90,21 @@ module.exports = function () {
     },
 
     /**
+     * Unregister all registered hooks.
+     */
+    unregisterAllHooks() {
+      var that = this;
+
+      // Get the IDs of all hooks in the hookRegistry.
+      var hookIds = Object.keys(hookRegistry);
+
+      // Loop through hooks and unregister each one.
+      hookIds.forEach(function (hookId) {
+        that.unregisterHook(hookId);
+      });
+    },
+
+    /**
      * Get all the currently registered hooks.
      */
     getAllRegisteredHooks() {
