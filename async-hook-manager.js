@@ -179,7 +179,8 @@ module.exports = function () {
         }
 
         // Else we have a promise, so push to hookPromises.
-        else if (typeof hookPromise === 'object' && hookPromise) {
+        else if (typeof hookReturnVal === 'object' &&
+            typeof hookReturnVal.then === 'function') {
           hookPromise = hookReturnVal;
         }
 
