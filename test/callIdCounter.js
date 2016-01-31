@@ -1,4 +1,4 @@
-var assert = require('assert');
+var expect = require('chai').expect;
 var AHM = require('../async-hook-manager.js');
 
 describe('test call id counter', function () {
@@ -8,7 +8,7 @@ describe('test call id counter', function () {
 
   it('should start with a null value', function () {
     // Check that last call id was null.
-    assert.equal(null, myHookManager.getLastCallId());
+    expect(myHookManager.getLastCallId()).to.equal.null;
   });
 
   it('should be 0 after first call', function () {
@@ -16,7 +16,7 @@ describe('test call id counter', function () {
     myHookManager.makeCall();
 
     // Check that last call id is now 0.
-    assert.equal(0, myHookManager.getLastCallId());
+    expect(myHookManager.getLastCallId()).to.equal(0);
   });
 
   it('should be 1 after second call', function () {    
@@ -24,6 +24,6 @@ describe('test call id counter', function () {
     myHookManager.makeCall();
 
     // Check that last call id is now 1.
-    assert.equal(1, myHookManager.getLastCallId());
+    expect(myHookManager.getLastCallId()).to.equal(1);
   });
 });
