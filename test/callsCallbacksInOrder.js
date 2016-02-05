@@ -29,7 +29,6 @@ describe('calls callbacks in order', function () {
     myHookManager.makeCall()
       .then(function () {
         firstCallCalled = true;
-        console.log('resolving first call');
       })
       .fail(function () {
         var err = new Error('first call was rejected');
