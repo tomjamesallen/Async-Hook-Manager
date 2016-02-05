@@ -31,7 +31,7 @@ module.exports = function () {
       callIdCounter ++;
       return callIdCounter;
     }
-  };
+  }
 
   /**
    * Check in an array of settled promises whether any have been rejected.
@@ -39,19 +39,19 @@ module.exports = function () {
    * @return {Boolean}
    */
   function hasRejectedPromise(promises) {
-    var hasRejectedPromise = false;
+    var _hasRejectedPromise = false;
 
     var promise;
     for (var i in promises) {
       if (!promises.hasOwnProperty(i)) continue;
       promise = promises[i];
       if (promise.state === 'rejected') {
-        hasRejectedPromise = true;
+        _hasRejectedPromise = true;
       }
     }
 
-    return hasRejectedPromise;
-  };
+    return _hasRejectedPromise;
+  }
   
   /**
    * Return our API.
@@ -76,7 +76,7 @@ module.exports = function () {
       
       hookRegistry[hookIdCounter] = {
         callback: hookCallback
-      }
+      };
 
       if (reference) {
         hookRegistry[hookIdCounter].reference = reference;
@@ -92,7 +92,7 @@ module.exports = function () {
      * @param {number} hookId the ID of the hook to unregister.
      */
     unregisterHook: function(hookId) {
-      var hookId = hookId.toString();
+      hookId = hookId.toString();
       delete hookRegistry[hookId];
     },
 
@@ -144,7 +144,7 @@ module.exports = function () {
       var rejected = false;
 
       // Options.
-      var options = options || {};
+      options = options || {};
 
       // Get the call Id.
       var thisCallId = newCallId();
@@ -169,7 +169,7 @@ module.exports = function () {
       for (var hookId in hookRegistry) {
 
         // Get hook and hook return value.
-        hook = hookRegistry[hookId]
+        hook = hookRegistry[hookId];
         hookReturnVal = hook.callback();
 
         // Reset promise values.
@@ -280,5 +280,5 @@ module.exports = function () {
     getLastCallId: function() {
       return callIdCounter;
     },
-  }
-}
+  };
+};
