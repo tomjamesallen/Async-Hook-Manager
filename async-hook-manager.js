@@ -40,11 +40,16 @@ module.exports = function () {
    */
   function hasRejectedPromise(promises) {
     var hasRejectedPromise = false;
-    promises.forEach(function (promise) {
+
+    var promise;
+    for (var i in promises) {
+      if (!promises.hasOwnProperty(i)) continue;
+      promise = promises[i];
       if (promise.state === 'rejected') {
         hasRejectedPromise = true;
       }
-    });
+    }
+
     return hasRejectedPromise;
   };
   
@@ -64,7 +69,7 @@ module.exports = function () {
      * @return {number}   hookId 
      *         We can use this ID later to unregister the hook.
      */
-    registerHook(hookCallback, reference) {
+    registerHook: function(hookCallback, reference) {
       if (typeof hookCallback !== 'function') return;
 
       var hookId = hookIdCounter.toString();
@@ -86,7 +91,7 @@ module.exports = function () {
      * Unregister a hook.
      * @param {number} hookId the ID of the hook to unregister.
      */
-    unregisterHook(hookId) {
+    unregisterHook: function(hookId) {
       var hookId = hookId.toString();
       delete hookRegistry[hookId];
     },
@@ -94,22 +99,23 @@ module.exports = function () {
     /**
      * Unregister all registered hooks.
      */
-    unregisterAllHooks() {
-      var that = this;
+    unregisterAllHooks: function() {
 
       // Get the IDs of all hooks in the hookRegistry.
       var hookIds = Object.keys(hookRegistry);
 
       // Loop through hooks and unregister each one.
-      hookIds.forEach(function (hookId) {
-        that.unregisterHook(hookId);
-      });
+      for (var i in hookIds) {
+        if (!hookIds.hasOwnProperty(i)) continue;
+        hookId = hookIds[i];
+        this.unregisterHook(hookId);
+      }
     },
 
     /**
      * Get all the currently registered hooks.
      */
-    getAllRegisteredHooks() {
+    getAllRegisteredHooks: function() {
       return hookRegistry;
     },
 
@@ -124,7 +130,7 @@ module.exports = function () {
      *                   used to fire anything that has to happen when once all
      *                   the hooks have returned their promises.
      */
-    makeCall(options) {
+    makeCall: function(options) {
 
       var thisCallHooksPromiseLog = clone(callHooksPromiseLog);
 
@@ -271,7 +277,7 @@ module.exports = function () {
      * Get the Id of the last call made.
      * @return {number}
      */
-    getLastCallId() {
+    getLastCallId: function() {
       return callIdCounter;
     },
   }
