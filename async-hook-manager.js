@@ -253,7 +253,7 @@ module.exports = function () {
 
         // Check whether we have a rejected promise from this call. If not
         // then resolve the returnPromise, otherwise reject it.
-        allHooksSettled.then(function () {
+        allHooksSettled.promise.then(function () {
           if (!rejected) {
             returnPromise.resolve({
               callId: thisCallId,
