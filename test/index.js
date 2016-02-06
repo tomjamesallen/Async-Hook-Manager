@@ -5,4 +5,5 @@ require('./singleHookReturnValues');
 require('./callsCallbacksInOrder');
 require('./respectPreviousCallsOption');
 require('./handlesRejectedHooks');
+require('./callbackApisMatch');
 require('./jshint.spec.js');

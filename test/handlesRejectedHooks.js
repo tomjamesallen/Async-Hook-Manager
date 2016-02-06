@@ -23,7 +23,6 @@ describe('will call a call`s callback when all hooks resolve, even if a previous
     // Create a hook that will reject/resolve based on the value of
     // `shouldRejectHook`.
     myHookManager.registerHook(function () {
-
       return !shouldRejectHook;
     });
 
