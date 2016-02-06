@@ -17,8 +17,7 @@ describe('hooks return values', function () {
       callPromise
         .then(function () {
           done();
-        })
-        .fail(function () {
+        }, function () {
           var err = new Error('call was rejected');
           done(err);
         })
@@ -32,15 +31,14 @@ describe('hooks return values', function () {
       return false;
     });
 
-    it('should call the call promise`s `fail` method', function (done) {
+    it('should call the call promise`s `fail` callback', function (done) {
 
       var callPromise = myHookManager.makeCall();
       callPromise
         .then(function () {
           var err = new Error('call was not rejected');
           done(err);
-        })
-        .fail(function () {
+        }, function () {
           done();
         })
     });
@@ -65,8 +63,7 @@ describe('hooks return values', function () {
       callPromise
         .then(function () {
           done();
-        })
-        .fail(function () {
+        }, function () {
           var err = new Error('call was rejected');
           done(err);
         })
@@ -86,15 +83,14 @@ describe('hooks return values', function () {
       return qPromise.promise;
     });
 
-    it('should call the call promise`s `fail` method', function (done) {
+    it('should call the call promise`s `fail` callback', function (done) {
 
       var callPromise = myHookManager.makeCall();
       callPromise
         .then(function () {
           var err = new Error('call was not rejected');
           done(err);
-        })
-        .fail(function () {
+        }, function () {
           done();
         })
     });

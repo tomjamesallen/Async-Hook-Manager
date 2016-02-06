@@ -29,8 +29,7 @@ describe('calls callbacks in order', function () {
     myHookManager.makeCall()
       .then(function () {
         firstCallCalled = true;
-      })
-      .fail(function () {
+      }, function () {
         var err = new Error('first call was rejected');
         done(err);
       });
@@ -55,8 +54,7 @@ describe('calls callbacks in order', function () {
           var err = new Error('second call firing before first');
           done(err);
         }
-      })
-      .fail(function () {
+      }, function () {
         var err = new Error('second call was rejected');
         done(err);
       });

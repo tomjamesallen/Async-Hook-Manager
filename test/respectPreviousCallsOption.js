@@ -29,8 +29,7 @@ describe('ignores call order when `respectPreviousCalls` is false', function () 
     myHookManager.makeCall()
       .then(function () {
         firstCallCalled = true;
-      })
-      .fail(function () {
+      }, function () {
         var err = new Error('first call was rejected');
         done(err);
       });
@@ -57,8 +56,7 @@ describe('ignores call order when `respectPreviousCalls` is false', function () 
           var err = new Error('second call fired after first');
           done(err);
         }
-      })
-      .fail(function () {
+      }, function () {
         var err = new Error('second call was rejected');
         done(err);
       });

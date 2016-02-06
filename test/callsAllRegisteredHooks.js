@@ -25,8 +25,7 @@ describe('calls all registered hooks', function () {
         catch (err) {
           done(err);
         }
-      })
-      .fail(function () {
+      }, function () {
         var err = new Error('`makeCall` promise was rejected');
         done(err);
       });
