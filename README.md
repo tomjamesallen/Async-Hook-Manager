@@ -47,10 +47,14 @@ Currently only CommonJS support.
     // Make a call via the hook manager instance.
     // This will call all of the registered hooks, and wait for all to respond
     // before firing its callback.
-    myHookManager.makeCall().then(function () {
+    myHookManager.makeCall(function () {
 
       // Do something that has to wait for all of the hooks to return.
       example.updateTheCurrentRoute();
+
+    }, function () {
+      
+      // Handle a failed call...
 
     });
 
@@ -64,17 +68,27 @@ Currently only CommonJS support.
 ### Register a new hook
 `.registerHook(hookCallback[, reference])`
 
+Register a hook. The callback passed to this method is called whenever a call to the corresponding AHM instance is made. The callback should return `true`, `false` (synchronous) or a promise (asynchronous). This method returns the id of the hook that's been registered. This can be used to unregister the hook. The reference argument is optional, and can contains a string or an object to help with identification of the hook.
+
 ### Unregister a hook
 `.unregisterHook(hookId)`
+
+The hookId corresponds to the return value of `.registerHook`. Unregisters the hook from the instance.
 
 ### Unregister all hooks
 '.unregisterAllHooks()'
 
+Unregister all hooks registered to the corresponding instance.
+
 ### Get all currently registered hooks
 `.getAllRegisteredHooks()`
 
+Returns the hook registry. This contains the callback, the hookId and an optional reference for each registered hook.
+
 ### Make a call
-`.makeCall([options])`
+`.makeCall([thenCallback, ][failCallback, ][options])`
+
+Can be passed then and fail callbacks directly. Additionally returns a promise that has its own `.then` method. If you are concerned with the order that calls are called in, then avoid using the returned promise's `.fail` method, as this cannot be guaranteed to fire sequentially. 
 
 ### Get the ID of the last call.
 `.getLastCallId()`

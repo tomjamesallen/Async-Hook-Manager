@@ -19,6 +19,8 @@ module.exports = function () {
   // Rejected return message.
   var REJECTED_ERROR = 'a hook rejected the call';
 
+  var noop = function () {};
+
   /**
    * Get a new call Id.
    */
@@ -75,7 +77,8 @@ module.exports = function () {
       var hookId = hookIdCounter.toString();
       
       hookRegistry[hookIdCounter] = {
-        callback: hookCallback
+        callback: hookCallback,
+        hookId: hookId
       };
 
       if (reference) {
@@ -122,15 +125,41 @@ module.exports = function () {
     /**
      * Make a call.
      *
+     * `makeCall([thenCallback,][failCallback,][options])`
+     *
      * This will call all of the hooks, and once their promises have resolved.
      * This method returns a promise which will resolve when all of the hooks'
      * promises have resolved.
+     *
+     * @param {function} thenCallback [/options]
+     *                   Provide the callback to be fired when all of the hooks
+     *                   have been resolved.
+     *                   Alternatively if no callback is provided, the options
+     *                   object can be passed to this argument.
+     * 
+     * @param {function} failCallback [/options]
+     *                   Provide the callback to be fired if a hook is rejected.
+     *                   Alternatively if no callback is provided, the options
+     *                   object can be passed to this argument.
+     *
+     * @param {function} options
+     *                   Pass options to the method if both of the first
+     *                   arguments have been passed callbacks.
      * 
      * @return {promise} Returns a promise, with a `then` method, which can be
      *                   used to fire anything that has to happen when once all
      *                   the hooks have returned their promises.
      */
-    makeCall: function(options) {
+    makeCall: function(thenCallback, failCallback, options) {
+
+      if (typeof thenCallback === 'object') {
+        options = thenCallback;
+        thenCallback = undefined;
+      }
+      else if (typeof failCallback === 'object') {
+        options = failCallback;
+        failCallback = undefined;
+      }
 
       var thisCallHooksPromiseLog = clone(callHooksPromiseLog);
 
@@ -270,6 +299,18 @@ module.exports = function () {
         });
       }
 
+      // Set callback defaults.
+      if (typeof thenCallback !== 'function') {
+        thenCallback = noop;
+      }
+      if (typeof failCallback !== 'function') {
+        failCallback = noop;
+      }
+
+      // Assign callbacks to promise.
+      returnPromise.promise.then(thenCallback, failCallback);
+
+      // Return the promise.
       return returnPromise.promise;
     },
 
