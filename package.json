@@ -7,6 +7,7 @@
   "scripts": {
     "test": "mocha test/index.js"
   },
+  "tonicExampleFilename": "example.js",
   "author": "tom allen <tomjamesallenweb@gmail.com> (http://tomjamesallen.co.uk)",
   "license": "ISC",
   "dependencies": {
