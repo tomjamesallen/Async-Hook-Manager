@@ -51,10 +51,14 @@ var syncHook = myHookManager.registerHook(function () {
 // Make a call via the hook manager instance.
 // This will call all of the registered hooks, and wait for all to respond
 // before firing its callback.
-myHookManager.makeCall().then(function () {
+myHookManager.makeCall(function () {
 
   // Do something that has to wait for all of the hooks to return.
   example.updateTheCurrentRoute();
+
+}, function () {
+  
+  // Handle a failed call...
 
 });
 
