@@ -68,7 +68,7 @@ Currently only CommonJS support.
 ### Register a new hook
 `.registerHook(hookCallback[, reference])`
 
-Register a hook. The callback passed to this method is called whenever a call to the corresponding AHM instance is made. The callback should return `true`, `false` (synchronous) or a promise (asynchronous). This method returns the id of the hook that's been registered. This can be used to unregister the hook. The reference argument is optional, and can contains a string or an object to help with identification of the hook.
+Register a hook. The callback passed to this method is called whenever a call to the corresponding AHM instance is made and will be passed the `payload` if one is passed to `.makeCall` (see below). The callback should return `true`, `false` (synchronous) or a promise (asynchronous). This method returns the id of the hook that's been registered. This can be used to unregister the hook. The reference argument is optional, and can contains a string or an object to help with identification of the hook.
 
 ### Unregister a hook
 `.unregisterHook(hookId)`
@@ -88,7 +88,13 @@ Returns the hook registry. This contains the callback, the hookId and an optiona
 ### Make a call
 `.makeCall([thenCallback, ][failCallback, ][options])`
 
-Can be passed then and fail callbacks directly. Additionally returns a promise that has its own `.then` method. If you are concerned with the order that calls are called in, then avoid using the returned promise's `.fail` method, as this cannot be guaranteed to fire sequentially. 
+Options:
+* `respectPreviousCalls` [boolean]: whether to wait for previous calls to resolve / reject before firing the current call's callback
+* `payload` [object/any]: will be passed to each of the registered hooks' callback functions
+
+Can be passed then and fail callbacks directly. Additionally returns a promise that has its own `.then` method. If you are concerned with the order that calls are called in, then avoid using the returned promise's `.fail` method, as this cannot be guaranteed to fire sequentially. You can pass an optional payload to the options argument; this will be delivered to all of the registered hooks.
 
 ### Get the ID of the last call.
 `.getLastCallId()`
+
+Get the ID of the last call to be made to the instance.
