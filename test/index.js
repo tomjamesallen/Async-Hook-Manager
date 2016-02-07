@@ -7,4 +7,5 @@ require('./respectPreviousCallsOption');
 require('./handlesRejectedHooks');
 require('./callbackApisMatch');
 require('./multipleHooks');
+require('./callPayloadGetsPassedToHooks');
 require('./jshint.spec.js');

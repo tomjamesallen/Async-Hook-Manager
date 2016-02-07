@@ -175,6 +175,9 @@ module.exports = function () {
       // Options.
       options = options || {};
 
+      // Get the call payload.
+      var callPayload = options.payload || null;
+
       // Get the call Id.
       var thisCallId = newCallId();
 
@@ -199,7 +202,10 @@ module.exports = function () {
 
         // Get hook and hook return value.
         hook = hookRegistry[hookId];
-        hookReturnVal = hook.callback();
+        hookReturnVal = hook.callback({
+          payload: callPayload,
+          callId: thisCallId
+        });
 
         // Reset promise values.
         qPromise = null;
