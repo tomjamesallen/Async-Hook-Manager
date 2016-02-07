@@ -9,7 +9,7 @@ var AHM = require('../async-hook-manager.js');
  * resolved, in-spite of the call log containing a rejected call.
  */
 
-describe('will call a call`s callback when all hooks resolve, even if a previous call was rejected.', function () {
+describe('will call a call`s callback when all hooks resolve, even if a previous call was rejected', function () {
 
   it('should reject the first call, and accept the second', function (done) {
     var myHookManager = AHM();
