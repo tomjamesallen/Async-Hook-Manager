@@ -16,7 +16,7 @@ var example = {
 var Q = require('q');
 
 // Load up AHM.
-var AHM = require('./async-hook-manager.js');
+var AHM = require('async-hook-manager');
 
 // Create a new instance of AHM.
 var myHookManager = AHM();
