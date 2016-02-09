@@ -189,27 +189,20 @@ module.exports = function () {
             
       // Create array to hold hook promises.
       var hookPromises = [];
-      
-      // Place holder for hook and hook return value and promise.
-      var hook,
-          hookReturnVal,
-          qPromise,
-          hookPromise;
 
       // We're going to loop through all the hooks and retrieve the return
       // value from the callback.
-      for (var hookId in hookRegistry) {
+      var checkHookReturnValue = function (hook) {
 
         // Get hook and hook return value.
-        hook = hookRegistry[hookId];
-        hookReturnVal = hook.callback({
+        var hookReturnVal = hook.callback({
           payload: callPayload,
           callId: thisCallId
         });
 
         // Reset promise values.
-        qPromise = null;
-        hookPromise = null;
+        var qPromise = null;
+        var hookPromise = null;
 
         // If we have a true, then we push a resolved promise to the
         // hookPromises.
@@ -241,6 +234,12 @@ module.exports = function () {
 
         // If we have a promise, then add it to the array of promises.
         hookPromises.push(hookPromise);
+      };
+
+      // Loop over all registered hooks and call `checkHookReturnValue`.
+      for (var hookId in hookRegistry) {
+        if (!hookRegistry.hasOwnProperty(hookId)) continue;
+        checkHookReturnValue(hookRegistry[hookId]);
       }
 
       // Return the allSettled promise.
