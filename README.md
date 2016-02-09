@@ -7,9 +7,6 @@ Currently only CommonJS support.
 `npm install async-hook-manager`
 
 ```javascript
-
-    // We're using Q to return promises to the hook manager.
-    var Q = require('q');
     
     // Load up AHM.
     var AHM = require('async-hook-manager');
@@ -20,19 +17,17 @@ Currently only CommonJS support.
     // Register an async hook.
     // The return value is the ID of the hook, which can later be used to
     // unregister the hook.
-    var asyncHookId = myHookManager.registerHook(function () {
-
-      // Create a new promise.
-      var hookPromise = Q.defer();
+    var asyncHookId = myHookManager.registerHook(function (call) {
       
-      // Do some aync stuff...
+      // Do some async stuff...
       example.fireTransitionalAnimation(function () {
         
         // On animation complete.
-        hookPromise.resolve();
-      });
+        call.resolve();
 
-      return hookPromise.promise;
+        // Or reject the transition with.
+        // call.reject();
+      });
     });
 
     // Register a sync hook.
@@ -68,7 +63,9 @@ Currently only CommonJS support.
 ### Register a new hook
 `.registerHook(hookCallback[, reference])`
 
-Register a hook. The callback passed to this method is called whenever a call to the corresponding AHM instance is made and will be passed the `payload` if one is passed to `.makeCall` (see below). The callback should return `true`, `false` (synchronous) or a promise (asynchronous). This method returns the id of the hook that's been registered. This can be used to unregister the hook. The reference argument is optional, and can contains a string or an object to help with identification of the hook.
+Register a hook. The callback passed to this method is called whenever a call to the corresponding AHM instance. The `hookCallback` is passed an object that contains the optional `payload` property that can be passed to `.makeCall`, as well as the `callId`, and callback functions to resolve or reject the call. These callbacks provide the simplest way of performing async work and then resolving/rejecting. Alternatively, the callback can return a boolean to resolve/reject synchronously, or return a promise to later be resolved/rejected.
+
+This method returns the id of the hook that's been registered. This can be used to unregister the hook. The reference argument is optional, and can contains a string or an object to help with identification of the hook.
 
 ### Unregister a hook
 `.unregisterHook(hookId)`

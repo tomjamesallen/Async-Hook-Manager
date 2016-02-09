@@ -8,4 +8,5 @@ require('./handlesRejectedHooks');
 require('./callbackApisMatch');
 require('./multipleHooks');
 require('./callPayloadGetsPassedToHooks');
+require('./hookResolveRejectCallbacksApi');
 require('./jshint.spec.js');

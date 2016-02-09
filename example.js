@@ -24,7 +24,21 @@ var myHookManager = AHM();
 // Register an async hook.
 // The return value is the ID of the hook, which can later be used to
 // unregister the hook.
-var asyncHookId = myHookManager.registerHook(function () {
+var asyncHookId = myHookManager.registerHook(function (call) {
+  
+  // Do some async stuff...
+  example.fireTransitionalAnimation(function () {
+    
+    // On animation complete.
+    call.resolve();
+
+    // Or reject the transition with.
+    // call.reject();
+  });
+});
+
+// Register another async hook, this time using a promise.
+var asyncHook2Id = myHookManager.registerHook(function () {
 
   // Create a new promise.
   var hookPromise = Q.defer();

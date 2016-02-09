@@ -194,15 +194,26 @@ module.exports = function () {
       // value from the callback.
       var checkHookReturnValue = function (hook) {
 
+        // Default done promise and callback.
+        var defaultPromise = Q.defer();
+        var resolveDefaultPromise = function () {
+          defaultPromise.resolve();
+        };
+        var rejectDefaultPromise = function () {
+          defaultPromise.reject();
+        };
+
         // Get hook and hook return value.
         var hookReturnVal = hook.callback({
           payload: callPayload,
-          callId: thisCallId
+          callId: thisCallId,
+          resolve: resolveDefaultPromise,
+          reject: rejectDefaultPromise
         });
 
         // Reset promise values.
         var qPromise = null;
-        var hookPromise = null;
+        var hookPromise = null;        
 
         // If we have a true, then we push a resolved promise to the
         // hookPromises.
@@ -218,12 +229,18 @@ module.exports = function () {
           hookPromise = hookReturnVal;
         }
 
-        // If we don't have a true return value or a promise then push a
-        // rejected promise to the hookPromises.
-        else {
+        // If we have a false return value then push a rejected promise to the
+        // hookPromises.
+        else if (hookReturnVal === false) {
           qPromise = Q.defer();
           qPromise.reject();
           hookPromise = qPromise.promise;
+        }
+
+        // Else if we have no return value, we'll default to a generated promise
+        // that gets resolved by the `done` callback.
+        else {
+          hookPromise = defaultPromise.promise;
         }
 
         // Save the most recent promise to the hook registry.
