@@ -3,7 +3,6 @@ Async hook manager built on top of the Q promise library.
 Currently only CommonJS support.
 
 ## Basic usage
-
 `npm install async-hook-manager`
 
 ```javascript
@@ -95,3 +94,8 @@ Can be passed then and fail callbacks directly. Additionally returns a promise t
 `.getLastCallId()`
 
 Get the ID of the last call to be made to the instance.
+
+## Development / testing
+[Clone the repository][github-repo], and run `npm install` to install dev and runtime dependencies. You can then run `npm test` to run the suite of tests. This includes jshint.
+
+[github-repo]: https://github.com/tomjamesallen/async-hook-manager
